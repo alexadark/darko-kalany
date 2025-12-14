@@ -1,0 +1,1 @@
+// This file is deprecated. Please use sanity_schema.ts

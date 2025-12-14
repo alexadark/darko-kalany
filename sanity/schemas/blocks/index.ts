@@ -1,0 +1,9 @@
+export { heroBlock } from './hero';
+export { ctaBlock } from './cta';
+export { featureBlock } from './feature';
+export { testimonialBlock } from './testimonial';
+export { pricingBlock } from './pricing';
+export { faqBlock } from './faq';
+export { galleryBlock } from './gallery';
+export { serviceListBlock } from './serviceList';
+export { featuredProjectsBlock } from './featuredProjects';
