@@ -1,18 +1,21 @@
-import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
-import { presentationTool } from 'sanity/presentation';
-import { visionTool } from '@sanity/vision';
-import { schemaTypes } from '@/sanity/schemas';
-import { resolve } from '@/sanity/presentation/resolve';
+import { defineConfig } from "sanity";
+import { structureTool } from "sanity/structure";
+import { presentationTool } from "sanity/presentation";
+import { visionTool } from "@sanity/vision";
+import { schemaTypes } from "@/sanity/schemas";
+import { resolve } from "@/sanity/presentation/resolve";
+
+const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || "2gj8du3t";
+const dataset = import.meta.env.VITE_SANITY_DATASET || "production";
 
 export default defineConfig({
-  name: 'default',
-  title: 'dk-studio-4',
+  name: "default",
+  title: "dk-studio-4",
 
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  projectId,
+  dataset,
 
-  basePath: '/studio',
+  basePath: "/studio",
 
   plugins: [
     structureTool(),
@@ -20,7 +23,7 @@ export default defineConfig({
       resolve,
       previewUrl: {
         previewMode: {
-          enable: '/api/draft-mode/enable',
+          enable: "/api/preview",
         },
       },
     }),

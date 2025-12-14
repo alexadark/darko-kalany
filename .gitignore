@@ -6,12 +6,10 @@ node_modules
 # Testing
 coverage
 
-# Next.js
-.next/
-out/
-
-# Production
-build
+# React Router / Vite
+.react-router/
+build/
+dist/
 
 # Misc
 .DS_Store
@@ -26,12 +24,8 @@ yarn-error.log*
 .env*.local
 .env
 
-# Vercel
-.vercel
-
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
 # Sanity
 .sanity

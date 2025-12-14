@@ -1,7 +1,4 @@
-'use client';
-
 import { useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { GalleryItem } from './MasonryGallery';
 
@@ -88,11 +85,9 @@ export function Lightbox({
         className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        <Image
+        <img
           src={item.src}
           alt={item.alt || item.title || 'Lightbox image'}
-          width={1920}
-          height={1080}
           className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
         />
 

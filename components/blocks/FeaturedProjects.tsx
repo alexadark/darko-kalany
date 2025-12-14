@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'react-router';
 import { urlFor } from '@/sanity/lib/image';
 import { Button } from '../ui/Button';
 
@@ -73,16 +72,15 @@ export function FeaturedProjects({
 
             return (
               <Link
-                href={projectLink}
+                to={projectLink}
                 key={project._id}
                 className="group cursor-pointer"
               >
                 <div className="overflow-hidden mb-6 aspect-[4/3] relative">
-                  <Image
+                  <img
                     src={imageUrl}
                     alt={project.featuredImage?.alt || project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                 </div>

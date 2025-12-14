@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router';
 import { ArrowRight, Box, Camera, Layers, Play, Film, Image as ImageIcon, Code, Settings } from 'lucide-react';
 
 interface Service {
@@ -95,7 +95,7 @@ export function ServiceList({
                 )}
                 {showLearnMore && (
                   <Link
-                    href={service.link || '/services'}
+                    to={service.link || '/services'}
                     className="text-xs font-mono uppercase tracking-wider text-white group-hover:text-primary flex items-center"
                   >
                     Learn More

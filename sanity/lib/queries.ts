@@ -1,4 +1,4 @@
-import { groq } from 'next-sanity';
+import groq from "groq";
 
 // Page queries
 export const PAGE_QUERY = groq`

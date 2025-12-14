@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { Quote } from 'lucide-react';
 
@@ -74,12 +73,12 @@ export function Testimonials({
                 <div className="flex items-center gap-4">
                   {imageUrl && (
                     <div className="w-12 h-12 rounded-full overflow-hidden grayscale">
-                      <Image
+                      <img
                         src={imageUrl}
                         alt={testimonial.image?.alt || testimonial.author}
                         width={48}
                         height={48}
-                        className="object-cover"
+                        className="object-cover w-full h-full"
                       />
                     </div>
                   )}

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -34,7 +34,7 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={combinedClasses}>
+      <Link to={href} className={combinedClasses}>
         {children}
       </Link>
     );

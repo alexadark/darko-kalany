@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { Button } from '../ui/Button';
 
@@ -67,12 +66,10 @@ export function Hero({
             <source src={videoUrl} type="video/mp4" />
           </video>
         ) : (
-          <Image
+          <img
             src={imageUrl}
             alt={backgroundImage?.alt || 'Hero background'}
-            fill
-            className="object-cover"
-            priority
+            className="w-full h-full object-cover"
           />
         )}
         {overlay && (

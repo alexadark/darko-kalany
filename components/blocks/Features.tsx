@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router';
 import { ArrowRight, Rocket, Shield, Zap, Star, Heart, Globe, Target, Sparkles } from 'lucide-react';
 
 interface Feature {
@@ -106,7 +106,7 @@ export function Features({
                 )}
                 {feature.link && (
                   <Link
-                    href={feature.link}
+                    to={feature.link}
                     className="text-xs font-mono uppercase tracking-wider text-white group-hover:text-primary flex items-center"
                   >
                     Learn More

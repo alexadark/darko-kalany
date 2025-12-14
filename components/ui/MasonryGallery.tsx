@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import { Play } from 'lucide-react';
 
 export interface GalleryItem {
@@ -28,11 +25,9 @@ export function MasonryGallery({ items, onItemClick }: MasonryGalleryProps) {
           onClick={() => onItemClick?.(item, index)}
         >
           <div className="relative aspect-auto">
-            <Image
+            <img
               src={item.src}
               alt={item.alt || item.title || 'Gallery image'}
-              width={800}
-              height={600}
               className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
             />
           </div>
