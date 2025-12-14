@@ -1,8 +1,21 @@
 import type { MetaFunction } from "react-router";
 import type { Route } from "./+types/home";
-import { client } from "@/sanity/lib/client";
+import { useQuery } from "@sanity/react-loader";
+import { loadQuery } from "~/sanity/loader.server";
+import { getPreviewData } from "~/sanity/session";
 import { PAGE_QUERY } from "@/sanity/lib/queries";
 import { BlockRenderer } from "@/components/blocks";
+
+interface PageData {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  pageBuilder: Array<Record<string, unknown>>;
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+  };
+}
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,13 +28,15 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
-  const page = await client.fetch(PAGE_QUERY, { slug: "/" });
-  return { page };
+export async function loader({ request }: Route.LoaderArgs) {
+  const { options } = await getPreviewData(request);
+  const data = await loadQuery<PageData>(PAGE_QUERY, { slug: "/" }, options);
+  return { initial: data };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const { page } = loaderData;
+  const { initial } = loaderData;
+  const { data: page } = useQuery<PageData>(PAGE_QUERY, { slug: "/" }, { initial });
 
   if (!page) {
     return (

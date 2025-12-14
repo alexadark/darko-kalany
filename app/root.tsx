@@ -5,9 +5,12 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useRouteLoaderData,
 } from "react-router";
 import type { LinksFunction } from "react-router";
 import type { Route } from "./+types/root";
+import { getPreviewData } from "./sanity/session";
+import { SanityVisualEditing } from "./components/SanityVisualEditing";
 
 import "./globals.css";
 
@@ -27,7 +30,21 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export async function loader({ request }: Route.LoaderArgs) {
+  const { preview } = await getPreviewData(request);
+  return {
+    preview,
+    ENV: {
+      PUBLIC_SANITY_PROJECT_ID: process.env.PUBLIC_SANITY_PROJECT_ID,
+      PUBLIC_SANITY_DATASET: process.env.PUBLIC_SANITY_DATASET,
+      PUBLIC_SANITY_STUDIO_URL: process.env.PUBLIC_SANITY_STUDIO_URL,
+    },
+  };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useRouteLoaderData<typeof loader>("root");
+
   return (
     <html lang="en">
       <head>
@@ -35,6 +52,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {data?.ENV && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+            }}
+          />
+        )}
       </head>
       <body className="bg-black text-white antialiased font-sans">
         {children}
@@ -46,7 +70,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const data = useRouteLoaderData<typeof loader>("root");
+  const preview = data?.preview || false;
+
+  return (
+    <>
+      <Outlet />
+      {preview && <SanityVisualEditing />}
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

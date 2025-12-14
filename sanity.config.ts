@@ -5,8 +5,8 @@ import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "@/sanity/schemas";
 import { resolve } from "@/sanity/presentation/resolve";
 
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || "2gj8du3t";
-const dataset = import.meta.env.VITE_SANITY_DATASET || "production";
+const projectId = "2gj8du3t";
+const dataset = "production";
 
 export default defineConfig({
   name: "default",
@@ -20,12 +20,18 @@ export default defineConfig({
   plugins: [
     structureTool(),
     presentationTool({
-      resolve,
       previewUrl: {
+        origin:
+          typeof location !== "undefined"
+            ? location.origin
+            : "http://localhost:3000",
+        preview: "/",
         previewMode: {
-          enable: "/api/preview",
+          enable: "/api/preview-mode/enable",
+          disable: "/api/preview-mode/disable",
         },
       },
+      resolve,
     }),
     visionTool(),
   ],

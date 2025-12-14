@@ -14,7 +14,8 @@
     "noEmit": true,
     "allowJs": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "~/*": ["./app/*"]
     },
     "rootDirs": [".", "./.react-router/types"]
   },
