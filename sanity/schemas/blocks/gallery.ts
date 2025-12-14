@@ -122,6 +122,13 @@ export const galleryBlock = createBlock({
       initialValue: 'original',
     }),
     defineField({
+      name: 'enableFilters',
+      title: 'Enable Category Filters',
+      type: 'boolean',
+      description: 'Show filter buttons based on image categories',
+      initialValue: false,
+    }),
+    defineField({
       name: 'ctaText',
       title: 'CTA Button Text',
       type: 'string',

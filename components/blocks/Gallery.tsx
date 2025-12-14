@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { urlFor } from '@/sanity/lib/image';
 import { Button } from '../ui/Button';
 import { MasonryGallery, type GalleryItem } from '../ui/MasonryGallery';
@@ -21,6 +21,7 @@ interface GalleryProps {
   images?: GalleryImage[];
   layout?: 'grid-2' | 'grid-3' | 'grid-4' | 'masonry' | 'carousel';
   enableLightbox?: boolean;
+  enableFilters?: boolean;
   ctaText?: string;
   ctaLink?: string;
 }
@@ -31,14 +32,30 @@ export function Gallery({
   images = [],
   layout = 'masonry',
   enableLightbox = true,
+  enableFilters = false,
   ctaText,
   ctaLink,
 }: GalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>('all');
+
+  // Extract unique categories from images
+  const categories = useMemo(() => {
+    const cats = images
+      .map((img) => img.category)
+      .filter((cat): cat is string => Boolean(cat));
+    return [...new Set(cats)];
+  }, [images]);
+
+  // Filter images based on active filter
+  const filteredImages = useMemo(() => {
+    if (activeFilter === 'all') return images;
+    return images.filter((img) => img.category === activeFilter);
+  }, [images, activeFilter]);
 
   if (!images.length) return null;
 
-  const galleryItems: GalleryItem[] = images.map((image) => ({
+  const galleryItems: GalleryItem[] = filteredImages.map((image) => ({
     _key: image._key,
     src: image.asset ? urlFor(image).width(1200).height(800).url() : 'https://picsum.photos/1200/800',
     title: image.title,
@@ -129,6 +146,35 @@ export function Gallery({
                 </Button>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Category Filters */}
+        {enableFilters && categories.length > 0 && (
+          <div className="mb-12 flex flex-wrap gap-3 justify-center md:justify-start">
+            <button
+              onClick={() => setActiveFilter('all')}
+              className={`px-6 py-2 font-mono text-sm uppercase tracking-wider transition-all duration-300 border ${
+                activeFilter === 'all'
+                  ? 'bg-primary text-black border-primary'
+                  : 'bg-transparent text-gray-400 border-white/20 hover:border-primary hover:text-white'
+              }`}
+            >
+              All
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveFilter(category)}
+                className={`px-6 py-2 font-mono text-sm uppercase tracking-wider transition-all duration-300 border ${
+                  activeFilter === category
+                    ? 'bg-primary text-black border-primary'
+                    : 'bg-transparent text-gray-400 border-white/20 hover:border-primary hover:text-white'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         )}
 

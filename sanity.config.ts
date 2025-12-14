@@ -4,6 +4,7 @@ import { presentationTool } from "sanity/presentation";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "@/sanity/schemas";
 import { resolve } from "@/sanity/presentation/resolve";
+import { structure } from "@/sanity/structure";
 
 const projectId = "2gj8du3t";
 const dataset = "production";
@@ -18,7 +19,7 @@ export default defineConfig({
   basePath: "/studio",
 
   plugins: [
-    structureTool(),
+    structureTool({ structure }),
     presentationTool({
       previewUrl: {
         origin:

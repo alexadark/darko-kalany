@@ -17,7 +17,10 @@
       "Bash(git checkout:*)",
       "Bash(rm:*)",
       "Bash(curl:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git push:*)",
+      "Bash(git remote add:*)",
+      "Bash(wc:*)"
     ],
     "deny": [],
     "ask": []

@@ -12,10 +12,18 @@ import {
   galleryBlock,
   serviceListBlock,
   featuredProjectsBlock,
+  contactFormBlock,
 } from './blocks';
 
 // Documents
-import { pageType, postType, projectType } from './documents';
+import {
+  pageType,
+  postType,
+  projectType,
+  siteSettingsType,
+  navigationType,
+  footerType,
+} from './documents';
 
 // Taxonomies
 import { categoryType, tagType } from './taxonomies';
@@ -37,6 +45,7 @@ export const schemaTypes = [
   galleryBlock,
   serviceListBlock,
   featuredProjectsBlock,
+  contactFormBlock,
 
   // Taxonomies
   categoryType,
@@ -46,4 +55,9 @@ export const schemaTypes = [
   pageType,
   postType,
   projectType,
+
+  // Singletons (Configuration)
+  siteSettingsType,
+  navigationType,
+  footerType,
 ];

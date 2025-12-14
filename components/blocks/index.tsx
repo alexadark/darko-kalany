@@ -7,6 +7,7 @@ import { FAQ } from './FAQ';
 import { Gallery } from './Gallery';
 import { ServiceList } from './ServiceList';
 import { FeaturedProjects } from './FeaturedProjects';
+import { ContactForm } from './ContactForm';
 import { Section } from '../shared/Section';
 
 const blockComponents: Record<string, React.ComponentType<any>> = {
@@ -19,6 +20,7 @@ const blockComponents: Record<string, React.ComponentType<any>> = {
   galleryBlock: Gallery,
   serviceListBlock: ServiceList,
   featuredProjectsBlock: FeaturedProjects,
+  contactFormBlock: ContactForm,
 };
 
 interface BlockRendererProps {
@@ -55,4 +57,4 @@ export function BlockRenderer({ blocks, documentId }: BlockRendererProps) {
   );
 }
 
-export { Hero, CTA, Features, Testimonials, Pricing, FAQ, Gallery, ServiceList, FeaturedProjects };
+export { Hero, CTA, Features, Testimonials, Pricing, FAQ, Gallery, ServiceList, FeaturedProjects, ContactForm };

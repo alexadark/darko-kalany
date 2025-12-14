@@ -39,12 +39,6 @@ export function Hero({
     medium: 'min-h-[60vh]',
   };
 
-  const alignmentClasses = {
-    left: 'text-left items-start',
-    center: 'text-center items-center',
-    right: 'text-right items-end',
-  };
-
   const imageUrl = backgroundImage?.asset
     ? urlFor(backgroundImage).width(1920).height(1080).url()
     : 'https://picsum.photos/id/26/1920/1080';
@@ -81,17 +75,31 @@ export function Hero({
 
       {/* Content */}
       <div
-        className={`relative z-10 container mx-auto px-6 flex flex-col ${alignmentClasses[alignment]}`}
+        className={`relative z-10 container mx-auto px-6 ${
+          alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left'
+        }`}
       >
         <h1 className="font-heading text-4xl md:text-7xl lg:text-8xl leading-tight tracking-tighter text-white mb-6 animate-fade-in-up">
           {heading}
         </h1>
         {subheading && (
-          <p className="font-sans text-lg md:text-xl text-gray-200 max-w-2xl mb-10 font-light leading-relaxed">
+          <p
+            className={`font-sans text-lg md:text-xl text-gray-200 max-w-2xl mb-10 font-light leading-relaxed ${
+              alignment === 'center' ? 'mx-auto' : alignment === 'right' ? 'ml-auto' : ''
+            }`}
+          >
             {subheading}
           </p>
         )}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div
+          className={`flex flex-col sm:flex-row gap-4 ${
+            alignment === 'center'
+              ? 'justify-center items-center'
+              : alignment === 'right'
+              ? 'justify-end items-end'
+              : 'justify-start items-start'
+          }`}
+        >
           {primaryCta?.text && primaryCta?.link && (
             <Button href={primaryCta.link} variant="primary">
               {primaryCta.text}

@@ -42,13 +42,14 @@ export const pageType = defineType({
         defineArrayMember({ type: 'pricingBlock' }),
         defineArrayMember({ type: 'faqBlock' }),
         defineArrayMember({ type: 'galleryBlock' }),
+        defineArrayMember({ type: 'contactFormBlock' }),
       ],
       options: {
         insertMenu: {
           filter: true,
           groups: [
             { name: 'hero', title: 'Hero Sections', of: ['heroBlock'] },
-            { name: 'conversion', title: 'Conversion', of: ['ctaBlock', 'pricingBlock'] },
+            { name: 'conversion', title: 'Conversion', of: ['ctaBlock', 'pricingBlock', 'contactFormBlock'] },
             { name: 'content', title: 'Content', of: ['featureBlock', 'serviceListBlock', 'testimonialBlock', 'faqBlock'] },
             { name: 'portfolio', title: 'Portfolio', of: ['featuredProjectsBlock', 'galleryBlock'] },
           ],

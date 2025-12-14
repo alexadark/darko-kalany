@@ -7,6 +7,12 @@ export default [
   route("api/preview-mode/disable", "routes/api.preview-mode.disable.tsx"),
   // Studio route
   route("studio/*", "routes/studio.tsx"),
-  // Catch-all for dynamic pages
+  // Projects routes
+  route("projects", "routes/projects.tsx"),
+  route("projects/:slug", "routes/projects.$slug.tsx"),
+  // Blog routes
+  route("blog", "routes/blog.tsx"),
+  route("blog/:slug", "routes/blog.$slug.tsx"),
+  // Catch-all for dynamic pages (must be last)
   route("*", "routes/page.tsx"),
 ] satisfies RouteConfig;

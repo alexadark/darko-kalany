@@ -7,3 +7,4 @@ export { faqBlock } from './faq';
 export { galleryBlock } from './gallery';
 export { serviceListBlock } from './serviceList';
 export { featuredProjectsBlock } from './featuredProjects';
+export { contactFormBlock } from './contactForm';
