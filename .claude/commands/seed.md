@@ -1,42 +1,42 @@
-# Commande: /seed
+# Command: /seed
 
-Génère des données de démonstration pour le site.
+Generates demo data for the site.
 
 ## Instructions
 
-### 1. Analyse la structure existante
+### 1. Analyze existing structure
 
-Lis les schemas dans `sanity/schemas/` pour comprendre:
-- Les types de documents (Page, Post, Project)
-- Les blocs disponibles
-- Les taxonomies (Category, Tag)
+Read schemas in `sanity/schemas/` to understand:
+- Document types (Page, Post, Project)
+- Available blocks
+- Taxonomies (Category, Tag)
 
-### 2. Génère le contenu
+### 2. Generate content
 
-Crée du contenu réaliste et varié:
-- 5-10 pages avec différentes combinaisons de blocs
-- 3-5 articles de blog avec catégories et tags
-- 2-3 projets portfolio
-- Des catégories et tags cohérents
+Create realistic and varied content:
+- 5-10 pages with different block combinations
+- 3-5 blog posts with categories and tags
+- 2-3 portfolio projects
+- Consistent categories and tags
 
-### 3. Format NDJSON
+### 3. NDJSON Format
 
-Écris dans `seed/content.ndjson`:
+Write to `seed/content.ndjson`:
 
 ```json
-{"_type": "category", "_id": "cat-tech", "title": "Technologie", "slug": {"_type": "slug", "current": "technologie"}}
+{"_type": "category", "_id": "cat-tech", "title": "Technology", "slug": {"_type": "slug", "current": "technology"}}
 {"_type": "tag", "_id": "tag-react", "title": "React", "slug": {"_type": "slug", "current": "react"}}
-{"_type": "post", "_id": "post-1", "title": "Premier Article", "slug": {"_type": "slug", "current": "premier-article"}, "category": {"_type": "reference", "_ref": "cat-tech"}, "tags": [{"_type": "reference", "_ref": "tag-react", "_key": "t1"}]}
+{"_type": "post", "_id": "post-1", "title": "First Article", "slug": {"_type": "slug", "current": "first-article"}, "category": {"_type": "reference", "_ref": "cat-tech"}, "tags": [{"_type": "reference", "_ref": "tag-react", "_key": "t1"}]}
 ```
 
-### 4. Gestion des images
+### 4. Image handling
 
-Pour les images, utilise des placeholders:
+For images, use placeholders:
 ```json
 {"_type": "image", "asset": {"_type": "reference", "_ref": "image-placeholder"}}
 ```
 
-Ou indique à l'utilisateur de télécharger les images manuellement.
+Or instruct the user to upload images manually.
 
 ### 5. Import
 
@@ -44,6 +44,6 @@ Ou indique à l'utilisateur de télécharger les images manuellement.
 npx sanity dataset import seed/content.ndjson production
 ```
 
-Options utiles:
-- `--replace` - Remplace les documents existants avec le même _id
-- `--missing` - N'importe que les documents manquants
+Useful options:
+- `--replace` - Replace existing documents with the same _id
+- `--missing` - Only import missing documents

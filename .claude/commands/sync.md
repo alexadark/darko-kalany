@@ -1,104 +1,104 @@
-# Commande: /sync
+# Command: /sync
 
-Analyse complète du site de référence dans `ref/` et création de tous les composants, schemas, routes et données correspondants.
+Complete analysis of the reference site in `ref/` and creation of all corresponding components, schemas, routes, and data.
 
 ---
 
-## Table des matières
+## Table of Contents
 
-1. [Vue d'ensemble](#vue-densemble)
-2. [Architecture du projet](#architecture-du-projet)
-3. [Phase 1: Analyse](#phase-1-analyse)
-4. [Phase 2: Configuration Sanity](#phase-2-configuration-sanity)
-5. [Phase 3: Layout global](#phase-3-layout-global)
-6. [Phase 4: Blocs pageBuilder](#phase-4-blocs-pagebuilder)
+1. [Overview](#overview)
+2. [Project Architecture](#project-architecture)
+3. [Phase 1: Analysis](#phase-1-analysis)
+4. [Phase 2: Sanity Configuration](#phase-2-sanity-configuration)
+5. [Phase 3: Global Layout](#phase-3-global-layout)
+6. [Phase 4: PageBuilder Blocks](#phase-4-pagebuilder-blocks)
 7. [Phase 5: Content Types](#phase-5-content-types)
 8. [Phase 6: Seed Data](#phase-6-seed-data)
-9. [Phase 7: Vérification](#phase-7-vérification)
-10. [Erreurs courantes](#erreurs-courantes)
-11. [Checklist complète](#checklist-complète)
+9. [Phase 7: Verification](#phase-7-verification)
+10. [Common Errors](#common-errors)
+11. [Complete Checklist](#complete-checklist)
 
 ---
 
-## Vue d'ensemble
+## Overview
 
-Ce système utilise **React Router 7** (framework mode) avec **Sanity CMS**:
+This system uses **React Router 7** (framework mode) with **Sanity CMS**:
 
 | Concept | Description |
 |---------|-------------|
-| **Pages normales** | Composées de blocs via pageBuilder (Home, About, Contact, etc.) |
-| **Content Types** | Documents avec liste + détail (Projects, Blog) |
-| **Layout global** | Header, Footer, Navigation via singletons Sanity |
-| **Visual Editing** | Support Presentation Tool de Sanity |
+| **Normal Pages** | Composed of blocks via pageBuilder (Home, About, Contact, etc.) |
+| **Content Types** | Documents with list + detail views (Projects, Blog) |
+| **Global Layout** | Header, Footer, Navigation via Sanity singletons |
+| **Visual Editing** | Sanity Presentation Tool support |
 
 ---
 
-## Architecture du projet
+## Project Architecture
 
 ```
 ├── app/
 │   ├── routes/
-│   │   ├── home.tsx              # Page d'accueil
-│   │   ├── page.tsx              # Catch-all pour pages dynamiques
-│   │   ├── projects.tsx          # Liste des projets
-│   │   ├── projects.$slug.tsx    # Détail projet
-│   │   ├── blog.tsx              # Liste des articles
-│   │   └── blog.$slug.tsx        # Détail article
-│   ├── routes.ts                 # Configuration des routes
-│   └── root.tsx                  # Layout avec Header/Footer
+│   │   ├── home.tsx              # Home page
+│   │   ├── page.tsx              # Catch-all for dynamic pages
+│   │   ├── projects.tsx          # Projects list
+│   │   ├── projects.$slug.tsx    # Project detail
+│   │   ├── blog.tsx              # Blog list
+│   │   └── blog.$slug.tsx        # Blog post detail
+│   ├── routes.ts                 # Routes configuration
+│   └── root.tsx                  # Layout with Header/Footer
 ├── components/
-│   ├── blocks/                   # Composants de blocs
+│   ├── blocks/                   # Block components
 │   │   ├── Hero.tsx
 │   │   ├── Gallery.tsx
 │   │   ├── ContactForm.tsx
 │   │   └── index.tsx             # Exports + BlockRenderer
-│   ├── shared/                   # Composants partagés
+│   ├── shared/                   # Shared components
 │   │   ├── Header.tsx
 │   │   └── Footer.tsx
-│   ├── projects/                 # Composants projets
+│   ├── projects/                 # Project components
 │   │   └── ProjectCard.tsx
-│   └── blog/                     # Composants blog
+│   └── blog/                     # Blog components
 │       └── PostCard.tsx
 ├── sanity/
 │   ├── schemas/
-│   │   ├── blocks/               # Schemas des blocs
+│   │   ├── blocks/               # Block schemas
 │   │   ├── documents/            # Page, Post, Project, singletons
 │   │   ├── objects/              # SEO, spacing, richText
-│   │   └── index.ts              # Export de tous les schemas
+│   │   └── index.ts              # Export all schemas
 │   ├── lib/
-│   │   ├── queries.ts            # Requêtes GROQ
-│   │   └── image.ts              # Helper urlFor
-│   └── structure.ts              # Structure Studio personnalisée
+│   │   ├── queries.ts            # GROQ queries
+│   │   └── image.ts              # urlFor helper
+│   └── structure.ts              # Custom Studio structure
 └── seed/
-    └── content.ndjson            # Données de seed
+    └── content.ndjson            # Seed data
 ```
 
 ---
 
-## Phase 1: Analyse
+## Phase 1: Analysis
 
-### Étape 1.1: Lire les fichiers de référence
+### Step 1.1: Read reference files
 
 ```
 ref/
 ├── components/
 │   ├── Header.tsx / Navbar.tsx
 │   ├── Footer.tsx
-│   └── blocks/ ou sections/
-├── constants.ts                  # Navigation, contenu statique
-└── pages/ ou routes/
+│   └── blocks/ or sections/
+├── constants.ts                  # Navigation, static content
+└── pages/ or routes/
 ```
 
-### Étape 1.2: Identifier les éléments
+### Step 1.2: Identify elements
 
-**A. Layout global:**
-- [ ] Header (logo, navigation, CTA, menu mobile)
-- [ ] Footer (colonnes, liens, social, copyright)
+**A. Global Layout:**
+- [ ] Header (logo, navigation, CTA, mobile menu)
+- [ ] Footer (columns, links, social, copyright)
 
-**B. Blocs pageBuilder:**
-- [ ] Hero (variations: centré, gauche, plein écran, avec vidéo)
+**B. PageBuilder Blocks:**
+- [ ] Hero (variations: centered, left, full screen, with video)
 - [ ] Features / Services
-- [ ] Gallery / Portfolio (avec filtres?)
+- [ ] Gallery / Portfolio (with filters?)
 - [ ] CTA (Call to Action)
 - [ ] Testimonials
 - [ ] Pricing
@@ -106,30 +106,30 @@ ref/
 - [ ] Contact Form
 
 **C. Content Types:**
-- [ ] Projects (liste + détail)
-- [ ] Blog/Posts (liste + détail)
+- [ ] Projects (list + detail)
+- [ ] Blog/Posts (list + detail)
 
-**D. Données à extraire:**
-- [ ] Navigation items (labels, liens, sous-menus)
-- [ ] Contact info (email, téléphone, adresse)
-- [ ] Social links (plateformes, URLs)
-- [ ] Options formulaires (types projet, budgets)
-- [ ] Contenu textuel de chaque section
+**D. Data to extract:**
+- [ ] Navigation items (labels, links, submenus)
+- [ ] Contact info (email, phone, address)
+- [ ] Social links (platforms, URLs)
+- [ ] Form options (project types, budgets)
+- [ ] Text content from each section
 
-### Étape 1.3: Questions à poser
+### Step 1.3: Questions to ask
 
-1. "J'ai identifié X sections. Veux-tu tous les créer?"
-2. "Certains correspondent à des blocs existants. Adapter ou créer nouveaux?"
-3. "Dois-je créer Projects et/ou Blog?"
-4. "Voici la navigation extraite. Correct?"
+1. "I've identified X sections. Do you want to create all of them?"
+2. "Some match existing blocks. Should I adapt or create new ones?"
+3. "Should I create Projects and/or Blog?"
+4. "Here's the extracted navigation. Is it correct?"
 
 ---
 
-## Phase 2: Configuration Sanity
+## Phase 2: Sanity Configuration
 
-### 2.1 Schema siteSettings
+### 2.1 siteSettings Schema
 
-**Fichier:** `sanity/schemas/documents/siteSettings.ts`
+**File:** `sanity/schemas/documents/siteSettings.ts`
 
 ```typescript
 import { defineType, defineField, defineArrayMember } from 'sanity';
@@ -244,9 +244,9 @@ export const siteSettingsType = defineType({
 });
 ```
 
-### 2.2 Schema navigation
+### 2.2 navigation Schema
 
-**Fichier:** `sanity/schemas/documents/navigation.ts`
+**File:** `sanity/schemas/documents/navigation.ts`
 
 ```typescript
 import { defineType, defineField, defineArrayMember } from 'sanity';
@@ -318,9 +318,9 @@ export const navigationType = defineType({
 });
 ```
 
-### 2.3 Schema footer
+### 2.3 footer Schema
 
-**Fichier:** `sanity/schemas/documents/footer.ts`
+**File:** `sanity/schemas/documents/footer.ts`
 
 ```typescript
 import { defineType, defineField, defineArrayMember } from 'sanity';
@@ -365,7 +365,7 @@ export const footerType = defineType({
       name: 'copyright',
       title: 'Copyright Text',
       type: 'string',
-      description: 'Use {year} pour insérer l\'année dynamiquement',
+      description: 'Use {year} to insert the year dynamically',
     }),
     defineField({
       name: 'designCredit',
@@ -381,9 +381,9 @@ export const footerType = defineType({
 });
 ```
 
-### 2.4 Structure Studio
+### 2.4 Studio Structure
 
-**Fichier:** `sanity/structure.ts`
+**File:** `sanity/structure.ts`
 
 ```typescript
 import type { StructureBuilder } from 'sanity/structure';
@@ -470,7 +470,7 @@ export const structure = (S: StructureBuilder) =>
     ]);
 ```
 
-### 2.5 Enregistrer dans sanity.config.ts
+### 2.5 Register in sanity.config.ts
 
 ```typescript
 import { structure } from './sanity/structure';
@@ -484,9 +484,9 @@ export default defineConfig({
 });
 ```
 
-### 2.6 Exporter les schemas
+### 2.6 Export schemas
 
-**Fichier:** `sanity/schemas/documents/index.ts`
+**File:** `sanity/schemas/documents/index.ts`
 
 ```typescript
 export { pageType } from './page';
@@ -497,11 +497,11 @@ export { navigationType } from './navigation';
 export { footerType } from './footer';
 ```
 
-**Fichier:** `sanity/schemas/index.ts`
+**File:** `sanity/schemas/index.ts`
 
 ```typescript
 import { siteSettingsType, navigationType, footerType, pageType, postType, projectType } from './documents';
-// ... autres imports
+// ... other imports
 
 export const schemaTypes = [
   // Objects
@@ -519,11 +519,11 @@ export const schemaTypes = [
 
 ---
 
-## Phase 3: Layout global
+## Phase 3: Global Layout
 
-### 3.1 Queries GROQ
+### 3.1 GROQ Queries
 
-**Fichier:** `sanity/lib/queries.ts` - Ajouter:
+**File:** `sanity/lib/queries.ts` - Add:
 
 ```typescript
 // Layout query (combines navigation, footer, settings)
@@ -573,7 +573,7 @@ export const LAYOUT_QUERY = groq`
 
 ### 3.2 Header Component
 
-**Fichier:** `components/shared/Header.tsx`
+**File:** `app/components/shared/Header.tsx`
 
 ```typescript
 'use client';
@@ -581,7 +581,6 @@ export const LAYOUT_QUERY = groq`
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
 
 interface NavigationItem {
   _key: string;
@@ -608,14 +607,7 @@ export function Header({ navigation, settings }: HeaderProps) {
   const location = useLocation();
 
   const siteName = settings?.siteName || 'Site Name';
-
-  // Default navigation if not provided
-  const navItems = navigation?.items || [
-    { _key: '1', label: 'Home', link: '/' },
-    { _key: '2', label: 'About', link: '/about' },
-    { _key: '3', label: 'Contact', link: '/contact' },
-  ];
-
+  const navItems = navigation?.items || [];
   const ctaText = navigation?.ctaText || 'Contact Us';
   const ctaLink = navigation?.ctaLink || '/contact';
 
@@ -625,7 +617,6 @@ export function Header({ navigation, settings }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
@@ -643,12 +634,10 @@ export function Header({ navigation, settings }: HeaderProps) {
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
           <Link to="/" className="font-heading text-xl uppercase tracking-tighter text-white">
             {siteName}
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
@@ -663,14 +652,12 @@ export function Header({ navigation, settings }: HeaderProps) {
             ))}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
-            <Button href={ctaLink} variant="primary" size="sm">
+            <Link to={ctaLink} className="btn-primary">
               {ctaText}
-            </Button>
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -681,7 +668,6 @@ export function Header({ navigation, settings }: HeaderProps) {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-black md:hidden">
           <div className="flex flex-col items-center justify-center h-full gap-8">
@@ -696,9 +682,6 @@ export function Header({ navigation, settings }: HeaderProps) {
                 {item.label}
               </Link>
             ))}
-            <Button href={ctaLink} variant="primary" className="mt-8">
-              {ctaText}
-            </Button>
           </div>
         </div>
       )}
@@ -709,7 +692,7 @@ export function Header({ navigation, settings }: HeaderProps) {
 
 ### 3.3 Footer Component
 
-**Fichier:** `components/shared/Footer.tsx`
+**File:** `app/components/shared/Footer.tsx`
 
 ```typescript
 import { Link } from 'react-router';
@@ -740,70 +723,59 @@ const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
 
 export function Footer({ footer, settings }: FooterProps) {
   const siteName = settings?.siteName || 'Site Name';
-  const tagline = footer?.tagline || 'Your tagline here.';
-  const contactEmail = settings?.contactEmail || 'hello@example.com';
-
-  const menuLinks = footer?.menuLinks || [
-    { _key: '1', label: 'Home', link: '/' },
-    { _key: '2', label: 'About', link: '/about' },
-  ];
-
-  const studioLinks = footer?.studioLinks || [
-    { _key: '1', label: 'Contact', link: '/contact' },
-  ];
-
+  const tagline = footer?.tagline || '';
+  const contactEmail = settings?.contactEmail || '';
+  const menuLinks = footer?.menuLinks || [];
+  const studioLinks = footer?.studioLinks || [];
   const socialLinks = settings?.socialLinks || [];
 
-  // Dynamic year in copyright
   const currentYear = new Date().getFullYear();
   const copyright = (footer?.copyright || '© {year} All rights reserved.')
     .replace('{year}', String(currentYear));
-
-  const designCredit = footer?.designCredit || '';
 
   return (
     <footer className="bg-neutral-950 border-t border-white/10 pt-20 pb-10">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
           <div>
             <h3 className="font-heading text-2xl uppercase tracking-tighter mb-4 text-white">
               {siteName}
             </h3>
-            <p className="text-gray-400 text-sm font-mono leading-relaxed">
-              {tagline}
-            </p>
+            {tagline && (
+              <p className="text-gray-400 text-sm font-mono leading-relaxed">{tagline}</p>
+            )}
           </div>
 
-          {/* Menu Links */}
-          <div>
-            <h4 className="text-white font-mono uppercase text-xs tracking-widest mb-6">Menu</h4>
-            <ul className="space-y-4">
-              {menuLinks.map((link) => (
-                <li key={link._key}>
-                  <Link to={link.link} className="text-gray-400 hover:text-primary text-sm transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {menuLinks.length > 0 && (
+            <div>
+              <h4 className="text-white font-mono uppercase text-xs tracking-widest mb-6">Menu</h4>
+              <ul className="space-y-4">
+                {menuLinks.map((link) => (
+                  <li key={link._key}>
+                    <Link to={link.link} className="text-gray-400 hover:text-primary text-sm transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          {/* Studio Links */}
-          <div>
-            <h4 className="text-white font-mono uppercase text-xs tracking-widest mb-6">Studio</h4>
-            <ul className="space-y-4">
-              {studioLinks.map((link) => (
-                <li key={link._key}>
-                  <Link to={link.link} className="text-gray-400 hover:text-primary text-sm transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {studioLinks.length > 0 && (
+            <div>
+              <h4 className="text-white font-mono uppercase text-xs tracking-widest mb-6">Studio</h4>
+              <ul className="space-y-4">
+                {studioLinks.map((link) => (
+                  <li key={link._key}>
+                    <Link to={link.link} className="text-gray-400 hover:text-primary text-sm transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          {/* Social */}
           <div>
             <h4 className="text-white font-mono uppercase text-xs tracking-widest mb-6">Connect</h4>
             <div className="flex gap-4">
@@ -823,18 +795,21 @@ export function Footer({ footer, settings }: FooterProps) {
                 );
               })}
             </div>
-            <div className="mt-8">
-              <a href={`mailto:${contactEmail}`} className="text-gray-500 text-xs hover:text-primary transition-colors">
-                {contactEmail}
-              </a>
-            </div>
+            {contactEmail && (
+              <div className="mt-8">
+                <a href={`mailto:${contactEmail}`} className="text-gray-500 text-xs hover:text-primary transition-colors">
+                  {contactEmail}
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-600 text-xs font-mono">{copyright}</p>
-          {designCredit && <p className="text-gray-700 text-xs font-mono uppercase">{designCredit}</p>}
+          {footer?.designCredit && (
+            <p className="text-gray-700 text-xs font-mono uppercase">{footer.designCredit}</p>
+          )}
         </div>
       </div>
     </footer>
@@ -842,16 +817,15 @@ export function Footer({ footer, settings }: FooterProps) {
 }
 ```
 
-### 3.4 Intégration dans root.tsx
+### 3.4 Integration in root.tsx
 
-**Fichier:** `app/root.tsx`
+**File:** `app/root.tsx`
 
 ```typescript
 import { Header } from "@/components/shared/Header";
 import { Footer } from "@/components/shared/Footer";
 import { LAYOUT_QUERY } from "@/sanity/lib/queries";
 
-// Dans le loader:
 export async function loader({ request }: Route.LoaderArgs) {
   const { preview, options } = await getPreviewData(request);
   const layoutData = await loadQuery<LayoutData>(LAYOUT_QUERY, {}, options);
@@ -863,7 +837,6 @@ export async function loader({ request }: Route.LoaderArgs) {
   };
 }
 
-// Dans App():
 export default function App() {
   const data = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
@@ -880,14 +853,12 @@ export default function App() {
   );
 }
 
-// IMPORTANT: ErrorBoundary doit aussi inclure Header/Footer
+// IMPORTANT: ErrorBoundary must also include Header/Footer
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const data = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
   const layout = data?.layout;
   const isStudio = location.pathname.startsWith("/studio");
-
-  // ... error handling ...
 
   return (
     <>
@@ -903,22 +874,28 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 ---
 
-## Phase 4: Blocs pageBuilder
+## Phase 4: PageBuilder Blocks
 
-### 4.1 Bloc ContactForm
+### 4.1 ContactForm Block
 
 **Schema:** `sanity/schemas/blocks/contactForm.ts`
 
 ```typescript
-import { defineField } from 'sanity';
+import { defineType, defineField } from 'sanity';
 import { EnvelopeIcon } from '@sanity/icons';
-import { createBlock } from './base';
 
-export const contactFormBlock = createBlock({
+export const contactFormBlock = defineType({
   name: 'contactFormBlock',
   title: 'Contact Form',
+  type: 'object',
   icon: EnvelopeIcon,
   fields: [
+    // Shared fields
+    defineField({ name: 'sectionTitle', title: 'Section Title', type: 'string' }),
+    defineField({ name: 'sectionSubtitle', title: 'Section Subtitle', type: 'string' }),
+    defineField({ name: 'spacing', title: 'Spacing', type: 'spacing' }),
+    defineField({ name: 'anchorId', title: 'Anchor ID', type: 'slug' }),
+    // Specific fields
     defineField({ name: 'heading', title: 'Heading', type: 'string' }),
     defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
     defineField({ name: 'email', title: 'Contact Email', type: 'string' }),
@@ -937,16 +914,21 @@ export const contactFormBlock = createBlock({
     }),
     defineField({ name: 'submitButtonText', title: 'Submit Button Text', type: 'string' }),
   ],
+  preview: {
+    select: { title: 'sectionTitle', subtitle: 'heading' },
+    prepare({ title, subtitle }) {
+      return { title: title || 'Contact Form', subtitle };
+    },
+  },
 });
 ```
 
-**Composant:** `components/blocks/ContactForm.tsx`
+**Component:** `app/components/blocks/ContactForm.tsx`
 
 ```typescript
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
 
 interface ContactFormProps {
   heading?: string;
@@ -967,19 +949,11 @@ export function ContactForm({
   budgetRanges = ['$1k - $5k'],
   submitButtonText = 'Send',
 }: ContactFormProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    type: projectTypes[0] || '',
-    budget: budgetRanges[0] || '',
-    message: '',
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Handle form submission
     setTimeout(() => {
       alert('Thank you for your inquiry!');
       setIsSubmitting(false);
@@ -989,7 +963,6 @@ export function ContactForm({
   return (
     <div className="container mx-auto px-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Info */}
         <div>
           <h2 className="text-5xl md:text-7xl font-heading text-white mb-6">{heading}</h2>
           <p className="text-gray-400 text-lg font-light mb-12">{description}</p>
@@ -1009,13 +982,12 @@ export function ContactForm({
           </div>
         </div>
 
-        {/* Form */}
         <div className="bg-white/5 p-8 md:p-12 border border-white/10">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Form fields... */}
-            <Button type="submit" variant="primary" className="w-full">
+            {/* Form fields */}
+            <button type="submit" className="btn-primary w-full">
               {isSubmitting ? 'Sending...' : submitButtonText}
-            </Button>
+            </button>
           </form>
         </div>
       </div>
@@ -1024,11 +996,20 @@ export function ContactForm({
 }
 ```
 
-### 4.2 Bloc Gallery avec filtres
+### 4.2 Gallery Block with filters
 
-**Ajouter dans le schema:** `enableFilters` field
+**Add to schema:** `enableFilters` field
 
-**Composant avec filtres:**
+```typescript
+defineField({
+  name: 'enableFilters',
+  title: 'Enable Filters',
+  type: 'boolean',
+  initialValue: false,
+}),
+```
+
+**Component with filters:**
 
 ```typescript
 const [activeFilter, setActiveFilter] = useState<string>('all');
@@ -1048,14 +1029,12 @@ const filteredImages = useMemo(() => {
   <div className="mb-12 flex flex-wrap gap-3">
     <button
       onClick={() => setActiveFilter('all')}
-      className={`px-6 py-2 font-mono text-sm uppercase ... ${
-        activeFilter === 'all' ? 'bg-primary text-black' : 'bg-transparent text-gray-400'
-      }`}
+      className={activeFilter === 'all' ? 'bg-primary text-black' : 'text-gray-400'}
     >
       All
     </button>
     {categories.map((cat) => (
-      <button key={cat} onClick={() => setActiveFilter(cat)} ...>
+      <button key={cat} onClick={() => setActiveFilter(cat)}>
         {cat}
       </button>
     ))}
@@ -1069,7 +1048,7 @@ const filteredImages = useMemo(() => {
 
 ### 5.1 Routes Configuration
 
-**Fichier:** `app/routes.ts`
+**File:** `app/routes.ts`
 
 ```typescript
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
@@ -1081,17 +1060,17 @@ export default [
   route("api/preview-mode/disable", "routes/api.preview-mode.disable.tsx"),
   // Studio
   route("studio/*", "routes/studio.tsx"),
-  // IMPORTANT: Content types AVANT le catch-all
+  // IMPORTANT: Content types BEFORE catch-all
   route("projects", "routes/projects.tsx"),
   route("projects/:slug", "routes/projects.$slug.tsx"),
   route("blog", "routes/blog.tsx"),
   route("blog/:slug", "routes/blog.$slug.tsx"),
-  // Catch-all DOIT être dernier
+  // Catch-all MUST be last
   route("*", "routes/page.tsx"),
 ] satisfies RouteConfig;
 ```
 
-### 5.2 Queries avec pagination
+### 5.2 Queries with pagination
 
 ```typescript
 export const PROJECTS_PAGINATED_QUERY = groq`
@@ -1115,7 +1094,7 @@ export const POSTS_COUNT_QUERY = groq`count(*[_type == "post"])`;
 
 ### 5.3 ProjectCard Component
 
-**Fichier:** `components/projects/ProjectCard.tsx`
+**File:** `app/components/projects/ProjectCard.tsx`
 
 ```typescript
 import { Link } from 'react-router';
@@ -1168,47 +1147,39 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
 ## Phase 6: Seed Data
 
-### 6.1 Format NDJSON
+### 6.1 NDJSON Format
 
-Chaque ligne = un document JSON complet. **IMPORTANT:** Les noms de champs doivent correspondre EXACTEMENT aux schemas.
+Each line = one complete JSON document. **IMPORTANT:** Field names must match schemas EXACTLY.
 
-### 6.2 Exemple complet
+### 6.2 Complete Example
 
-**Fichier:** `seed/content.ndjson`
+**File:** `seed/content.ndjson`
 
 ```jsonl
-{"_type": "siteSettings", "_id": "siteSettings", "siteName": "Mon Site", "siteDescription": "Description du site", "contactEmail": "hello@example.com", "contactPhone": "+1 234 567 890", "contactAddress": "123 Street\nCity, Country", "socialLinks": [{"_key": "s1", "platform": "instagram", "url": "https://instagram.com/example"}, {"_key": "s2", "platform": "linkedin", "url": "https://linkedin.com/company/example"}], "projectsPerPage": 6, "postsPerPage": 6}
-{"_type": "navigation", "_id": "navigation", "items": [{"_key": "n1", "label": "Home", "link": "/"}, {"_key": "n2", "label": "Portfolio", "link": "/portfolio"}, {"_key": "n3", "label": "Services", "link": "/services"}, {"_key": "n4", "label": "Projects", "link": "/projects"}, {"_key": "n5", "label": "About", "link": "/about"}, {"_key": "n6", "label": "Contact", "link": "/contact"}], "ctaText": "Contact Us", "ctaLink": "/contact"}
-{"_type": "footer", "_id": "footer", "tagline": "Your company tagline here.", "menuLinks": [{"_key": "m1", "label": "Home", "link": "/"}, {"_key": "m2", "label": "Portfolio", "link": "/portfolio"}, {"_key": "m3", "label": "Services", "link": "/services"}], "studioLinks": [{"_key": "s1", "label": "About", "link": "/about"}, {"_key": "s2", "label": "Contact", "link": "/contact"}], "copyright": "© {year} Company Name. All rights reserved.", "designCredit": "Designed by Studio"}
+{"_type": "siteSettings", "_id": "siteSettings", "siteName": "My Site", "siteDescription": "Site description", "contactEmail": "hello@example.com"}
+{"_type": "navigation", "_id": "navigation", "items": [{"_key": "n1", "label": "Home", "link": "/"}, {"_key": "n2", "label": "About", "link": "/about"}], "ctaText": "Contact", "ctaLink": "/contact"}
+{"_type": "footer", "_id": "footer", "tagline": "Your tagline here.", "copyright": "© {year} All rights reserved."}
 {"_type": "category", "_id": "cat-design", "title": "Design", "slug": {"_type": "slug", "current": "design"}}
-{"_type": "category", "_id": "cat-development", "title": "Development", "slug": {"_type": "slug", "current": "development"}}
-{"_type": "project", "_id": "project-1", "title": "Project One", "slug": {"_type": "slug", "current": "project-one"}, "excerpt": "Description of project one.", "client": "Client Name", "year": "2024", "featured": true, "categories": [{"_type": "reference", "_ref": "cat-design", "_key": "c1"}]}
-{"_type": "page", "_id": "page-home", "title": "Home", "slug": {"_type": "slug", "current": "/"}, "pageBuilder": [{"_type": "heroBlock", "_key": "hero1", "heading": "Welcome", "subheading": "Your subtitle here", "alignment": "center", "overlay": true, "height": "full", "primaryCta": {"text": "Learn More", "link": "/about"}}]}
-{"_type": "page", "_id": "page-portfolio", "title": "Portfolio", "slug": {"_type": "slug", "current": "portfolio"}, "pageBuilder": [{"_type": "heroBlock", "_key": "hero1", "heading": "Portfolio", "alignment": "center", "height": "medium"}, {"_type": "galleryBlock", "_key": "gallery1", "heading": "Our Work", "layout": "masonry", "enableLightbox": true, "enableFilters": true, "images": [{"_key": "g1", "alt": "Image 1", "title": "Image 1", "category": "design"}]}]}
-{"_type": "page", "_id": "page-contact", "title": "Contact", "slug": {"_type": "slug", "current": "contact"}, "pageBuilder": [{"_type": "contactFormBlock", "_key": "contact1", "heading": "Contact", "description": "Get in touch with us.", "email": "hello@example.com", "projectTypes": ["Design", "Development", "Other"], "budgetRanges": ["$1k - $5k", "$5k - $10k", "$10k+"], "submitButtonText": "Send Message"}]}
+{"_type": "page", "_id": "page-home", "title": "Home", "slug": {"_type": "slug", "current": "/"}, "pageBuilder": [{"_type": "heroBlock", "_key": "hero1", "heading": "Welcome"}]}
 ```
 
-### 6.3 Règles importantes
+### 6.3 Important Rules
 
-| Règle | Exemple correct | Exemple incorrect |
-|-------|-----------------|-------------------|
-| `_key` obligatoire dans arrays | `{"_key": "abc123", ...}` | `{...}` sans _key |
-| Champs = noms du schema | `enableFilters` | `showFilters` |
+| Rule | Correct Example | Incorrect Example |
+|------|-----------------|-------------------|
+| `_key` required in arrays | `{"_key": "abc123", ...}` | `{...}` without _key |
+| Fields = schema names | `enableFilters` | `showFilters` |
 | References | `{"_type": "reference", "_ref": "cat-1", "_key": "r1"}` | `{"_ref": "cat-1"}` |
 | Slug format | `{"_type": "slug", "current": "my-slug"}` | `"my-slug"` |
 
 ---
 
-## Phase 7: Vérification
+## Phase 7: Verification
 
-### 7.1 Import des données
+### 7.1 Import data
 
 ```bash
-# Import avec remplacement
 npx sanity dataset import seed/content.ndjson production --replace
-
-# Vérifier l'import
-npx sanity documents query '*[_type in ["siteSettings", "navigation", "footer"]][0...3]'
 ```
 
 ### 7.2 Build
@@ -1217,165 +1188,103 @@ npx sanity documents query '*[_type in ["siteSettings", "navigation", "footer"]]
 npm run build
 ```
 
-### 7.3 Tests manuels
+### 7.3 Manual Tests
 
-- [ ] Homepage s'affiche avec Header/Footer
-- [ ] Navigation fonctionne
-- [ ] Pages dynamiques (portfolio, contact, etc.)
-- [ ] Page 404 a Header/Footer
-- [ ] /projects liste les projets
-- [ ] /projects/[slug] affiche le détail
-- [ ] Visual Editing fonctionne
+- [ ] Homepage displays with Header/Footer
+- [ ] Navigation works
+- [ ] Dynamic pages work
+- [ ] 404 page has Header/Footer
+- [ ] /projects lists projects
+- [ ] /projects/[slug] shows detail
+- [ ] Visual Editing works
 
 ---
 
-## Erreurs courantes
+## Common Errors
 
-### 1. Page 404 sans Header/Footer
+### 1. 404 Page without Header/Footer
 
-**Cause:** ErrorBoundary ne rend pas Header/Footer
-**Solution:** Voir section 3.4
+**Cause:** ErrorBoundary doesn't render Header/Footer
+**Solution:** See section 3.4
 
-### 2. Pages en 404 malgré seed data
+### 2. Pages return 404 despite seed data
 
-**Cause:** Données non importées
+**Cause:** Data not imported
 **Solution:**
 ```bash
 npx sanity dataset import seed/content.ndjson production --replace
 ```
 
-### 3. Header/Footer vides
-
-**Cause:** Singletons non créés ou noms de champs incorrects
-**Vérifier:**
-```bash
-npx sanity documents query '*[_type == "navigation"][0]'
-```
-
-### 4. Noms de champs incorrects
-
-| Schema | Seed Data |
-|--------|-----------|
-| `enableLightbox` | `enableLightbox` (pas `showLightbox`) |
-| `enableFilters` | `enableFilters` (pas `showFilters`) |
-| `heading` | `heading` (pas `sectionTitle` pour Gallery) |
-| `title` | `title` (pas `caption` pour images) |
-
-### 5. Routes catch-all avant content types
+### 3. Catch-all route before content types
 
 **Incorrect:**
 ```typescript
 route("*", "routes/page.tsx"),
-route("projects", "routes/projects.tsx"), // Ne sera jamais atteint!
+route("projects", "routes/projects.tsx"), // Never reached!
 ```
 
 **Correct:**
 ```typescript
 route("projects", "routes/projects.tsx"),
-route("*", "routes/page.tsx"), // En dernier
+route("*", "routes/page.tsx"), // Last
 ```
 
-### 6. Hero non centré
+### 4. Incorrect field names in seed data
 
-**Cause:** Manque `text-center` et `mx-auto`
-**Solution:** Voir composant Hero avec alignment conditionnel
-
-### 7. Images placeholder
-
-Les images sans `asset._ref` utilisent un placeholder. Pour de vraies images:
-1. Uploader via Sanity Studio
-2. Récupérer les `_ref`
-3. Mettre à jour le seed
-
-### 8. Erreur bulk upload images dans Gallery
-
-**Erreur:** `TypeError: Cannot read properties of undefined (reading 'name')` lors du drag-and-drop multiple d'images.
-
-**Cause:** `defineArrayMember` pour les images avec champs custom nécessite une propriété `name` explicite.
-
-**Solution:**
-```typescript
-// INCORRECT - cause l'erreur
-defineArrayMember({
-  type: 'image',
-  options: { hotspot: true },
-  fields: [...]
-})
-
-// CORRECT - ajouter name
-defineArrayMember({
-  name: 'galleryImage',  // <-- OBLIGATOIRE pour bulk upload
-  type: 'image',
-  options: { hotspot: true },
-  fields: [...]
-})
-```
-
-### 9. Bulk upload n'ajoute qu'une seule image
-
-**Problème:** Lors du drag-and-drop de plusieurs images, seule la première est ajoutée.
-
-**Cause:** Limitation de Sanity Studio avec les images ayant des champs custom dans un array.
-
-**Solution:** Utiliser un custom input component pour gérer le bulk upload. Voir `sanity/components/BulkImageArrayInput.tsx`.
+| Schema | Seed Data |
+|--------|-----------|
+| `enableLightbox` | `enableLightbox` (not `showLightbox`) |
+| `enableFilters` | `enableFilters` (not `showFilters`) |
 
 ---
 
-## Checklist complète
+## Complete Checklist
 
-### Configuration Sanity
-- [ ] Schema siteSettings créé
-- [ ] Schema navigation créé
-- [ ] Schema footer créé
-- [ ] Structure Studio configurée
-- [ ] Schemas exportés dans index.ts
-- [ ] sanity.config.ts utilise la structure
+### Sanity Configuration
+- [ ] siteSettings schema created
+- [ ] navigation schema created
+- [ ] footer schema created
+- [ ] Studio structure configured
+- [ ] Schemas exported in index.ts
 
 ### Layout
-- [ ] Header.tsx créé avec menu mobile
-- [ ] Footer.tsx créé avec social icons
-- [ ] LAYOUT_QUERY ajoutée
-- [ ] root.tsx charge les données layout
-- [ ] root.tsx rend Header/Footer
-- [ ] ErrorBoundary inclut Header/Footer
+- [ ] Header.tsx created with mobile menu
+- [ ] Footer.tsx created with social icons
+- [ ] LAYOUT_QUERY added
+- [ ] root.tsx loads layout data
+- [ ] ErrorBoundary includes Header/Footer
 
-### Blocs
-- [ ] Tous les blocs identifiés créés
-- [ ] Schemas dans blocks/index.ts
-- [ ] Composants dans components/blocks/index.tsx
-- [ ] pageBuilder dans page.ts inclut les blocs
+### Blocks
+- [ ] All identified blocks created
+- [ ] Schemas in blocks/index.ts
+- [ ] Components in components/blocks/index.tsx
 
 ### Content Types
-- [ ] Routes projects et blog dans routes.ts
-- [ ] AVANT le catch-all
-- [ ] Queries avec pagination
-- [ ] ProjectCard et PostCard créés
+- [ ] Routes in routes.ts BEFORE catch-all
+- [ ] Queries with pagination
+- [ ] Card components created
 
 ### Seed Data
-- [ ] Singletons (siteSettings, navigation, footer)
-- [ ] Categories
-- [ ] Projects
-- [ ] Pages (home, portfolio, contact, etc.)
-- [ ] Champs correspondent aux schemas
+- [ ] Singletons created
+- [ ] Categories/Tags created
+- [ ] Pages created
+- [ ] Field names match schemas
 
 ### Validation
-- [ ] npm run build passe
-- [ ] Import Sanity réussi
-- [ ] Toutes les pages accessibles
-- [ ] 404 avec Header/Footer
-- [ ] Visual Editing fonctionne
+- [ ] npm run build passes
+- [ ] Sanity import successful
+- [ ] All pages accessible
 
 ---
 
-## Commandes rapides
+## Quick Commands
 
 ```bash
 # Import seed data
 npx sanity dataset import seed/content.ndjson production --replace
 
-# Vérifier documents
+# Verify documents
 npx sanity documents query '*[_type == "siteSettings"][0]'
-npx sanity documents query '*[_type == "page"][0...5]{title, slug}'
 
 # Build
 npm run build

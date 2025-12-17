@@ -25,7 +25,6 @@ export const galleryBlock = createBlock({
       type: 'array',
       of: [
         defineArrayMember({
-          name: 'galleryImage',
           type: 'image',
           options: { hotspot: true },
           fields: [

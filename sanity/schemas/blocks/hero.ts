@@ -21,6 +21,20 @@ export const heroBlock = createBlock({
       description: 'Supporting text below the heading',
     }),
     defineField({
+      name: 'mediaType',
+      title: 'Media Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Image', value: 'image' },
+          { title: 'Video Upload', value: 'video' },
+          { title: 'YouTube', value: 'youtube' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'image',
+    }),
+    defineField({
       name: 'backgroundImage',
       title: 'Background Image',
       type: 'image',
@@ -32,12 +46,40 @@ export const heroBlock = createBlock({
           title: 'Alternative text',
         }),
       ],
+      hidden: ({ parent }) => parent?.mediaType !== 'image',
     }),
     defineField({
-      name: 'videoUrl',
-      title: 'Background Video URL',
+      name: 'backgroundVideo',
+      title: 'Background Video',
+      type: 'file',
+      options: {
+        accept: 'video/*',
+      },
+      description: 'Upload a video file (MP4, WebM)',
+      hidden: ({ parent }) => parent?.mediaType !== 'video',
+    }),
+    defineField({
+      name: 'youtubeUrl',
+      title: 'YouTube URL',
       type: 'url',
-      description: 'Optional video URL (MP4). Will override background image.',
+      description: 'Paste a YouTube video URL (will display without YouTube branding)',
+      hidden: ({ parent }) => parent?.mediaType !== 'youtube',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['https'],
+        }).custom((url) => {
+          if (!url) return true;
+          const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
+          return youtubeRegex.test(url) || 'Must be a valid YouTube URL';
+        }),
+    }),
+    defineField({
+      name: 'videoPoster',
+      title: 'Video Poster Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Fallback image shown while video loads',
+      hidden: ({ parent }) => parent?.mediaType === 'image',
     }),
     defineField({
       name: 'primaryCta',

@@ -1,6 +1,6 @@
-# Commande: /block [nom]
+# Command: /block [name]
 
-Crée un nouveau bloc avec son schema Sanity et composant React.
+Creates a new block with its Sanity schema and React component.
 
 ## Usage
 
@@ -12,38 +12,38 @@ Crée un nouveau bloc avec son schema Sanity et composant React.
 
 ## Instructions
 
-### 1. Demande les détails
+### 1. Ask for details
 
-Pose ces questions:
-1. "Quels champs ce bloc doit-il avoir?"
-2. "Y a-t-il des variantes de layout?"
-3. "Ce bloc a-t-il des images?"
+Ask these questions:
+1. "What fields should this block have?"
+2. "Are there layout variants?"
+3. "Does this block have images?"
 
-### 2. Crée le Schema Sanity
+### 2. Create the Sanity Schema
 
-Fichier: `sanity/schemas/blocks/[nom].ts`
+File: `sanity/schemas/blocks/[name].ts`
 
-Structure obligatoire:
-- Inclure les champs partagés (sectionTitle, sectionSubtitle, spacing, anchorId)
-- Définir un preview pertinent
-- Utiliser defineType et defineField
+Required structure:
+- Include shared fields (sectionTitle, sectionSubtitle, spacing, anchorId)
+- Define a relevant preview
+- Use defineType and defineField
 
-### 3. Crée le Composant React
+### 3. Create the React Component
 
-Fichier: `components/blocks/[Nom].tsx`
+File: `app/components/blocks/[Name].tsx`
 
-- Interface TypeScript pour les props
-- Design responsive avec Tailwind
-- Gérer les cas où les données sont vides
+- TypeScript interface for props
+- Responsive design with Tailwind
+- Handle cases where data is empty
 
-### 4. Enregistre le bloc
+### 4. Register the block
 
-1. `sanity/schemas/index.ts` - Ajouter l'export
-2. `components/blocks/index.tsx` - Ajouter dans blockComponents
-3. `sanity/schemas/documents/page.ts` - Ajouter dans pageBuilder.of
+1. `sanity/schemas/index.ts` - Add the export
+2. `app/components/blocks/index.tsx` - Add to blockComponents
+3. `sanity/schemas/documents/page.ts` - Add to pageBuilder.of
 
-### 5. Teste
+### 5. Test
 
-- Lance `npm run dev`
-- Va dans /studio
-- Crée une page et ajoute le nouveau bloc
+- Run `npm run dev`
+- Go to /studio
+- Create a page and add the new block
