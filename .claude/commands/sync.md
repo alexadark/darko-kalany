@@ -1287,6 +1287,38 @@ Les images sans `asset._ref` utilisent un placeholder. Pour de vraies images:
 2. Récupérer les `_ref`
 3. Mettre à jour le seed
 
+### 8. Erreur bulk upload images dans Gallery
+
+**Erreur:** `TypeError: Cannot read properties of undefined (reading 'name')` lors du drag-and-drop multiple d'images.
+
+**Cause:** `defineArrayMember` pour les images avec champs custom nécessite une propriété `name` explicite.
+
+**Solution:**
+```typescript
+// INCORRECT - cause l'erreur
+defineArrayMember({
+  type: 'image',
+  options: { hotspot: true },
+  fields: [...]
+})
+
+// CORRECT - ajouter name
+defineArrayMember({
+  name: 'galleryImage',  // <-- OBLIGATOIRE pour bulk upload
+  type: 'image',
+  options: { hotspot: true },
+  fields: [...]
+})
+```
+
+### 9. Bulk upload n'ajoute qu'une seule image
+
+**Problème:** Lors du drag-and-drop de plusieurs images, seule la première est ajoutée.
+
+**Cause:** Limitation de Sanity Studio avec les images ayant des champs custom dans un array.
+
+**Solution:** Utiliser un custom input component pour gérer le bulk upload. Voir `sanity/components/BulkImageArrayInput.tsx`.
+
 ---
 
 ## Checklist complète

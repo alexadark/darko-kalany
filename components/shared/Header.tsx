@@ -39,6 +39,8 @@ export function Header({ navigation, settings }: HeaderProps) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+    // Check scroll position on mount
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -59,10 +61,10 @@ export function Header({ navigation, settings }: HeaderProps) {
     };
   }, [isMenuOpen]);
 
-  const headerClass = `fixed top-0 w-full z-40 transition-all duration-300 border-b ${
+  const headerClass = `fixed top-0 w-full z-40 transition-all duration-300 ${
     isScrolled || isMenuOpen
-      ? 'bg-black/90 backdrop-blur-md border-white/10 py-4'
-      : 'bg-transparent border-transparent py-6'
+      ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-4'
+      : 'py-6'
   }`;
 
   // Default navigation items if not provided

@@ -1,6 +1,7 @@
 import { defineField, defineArrayMember } from 'sanity';
 import { ImagesIcon } from '@sanity/icons';
 import { createBlock } from './base';
+import { BulkImageArrayInput } from '../../components/BulkImageArrayInput';
 
 export const galleryBlock = createBlock({
   name: 'galleryBlock',
@@ -24,6 +25,7 @@ export const galleryBlock = createBlock({
       type: 'array',
       of: [
         defineArrayMember({
+          name: 'galleryImage',
           type: 'image',
           options: { hotspot: true },
           fields: [
@@ -53,6 +55,9 @@ export const galleryBlock = createBlock({
       ],
       options: {
         layout: 'grid',
+      },
+      components: {
+        input: BulkImageArrayInput,
       },
       validation: (Rule) => Rule.min(1).error('Add at least one image'),
     }),

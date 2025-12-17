@@ -1,22 +1,30 @@
-# Claude Code Directives - Next.js + Sanity Project
+# Claude Code Directives - React Router 7 + Sanity Project
 
-Ce projet utilise Next.js 14 (App Router) avec Sanity CMS. Tu es responsable de créer et gérer les composants, schemas, et contenus.
+Ce projet utilise React Router 7 (framework mode) avec Sanity CMS. Tu es responsable de créer et gérer les composants, schemas, et contenus.
 
 ## Architecture du Projet
 
 ```
-├── app/                    # Next.js App Router
-│   ├── (site)/            # Pages publiques
-│   └── studio/            # Sanity Studio (embedded)
-├── components/
-│   ├── blocks/            # Composants de blocs (Hero, CTA, etc.)
-│   └── shared/            # Composants réutilisables
+├── app/
+│   ├── routes/            # React Router 7 routes (home, blog, projects, studio)
+│   ├── components/        # Composants React
+│   │   ├── blocks/        # Composants de blocs (Hero, CTA, Gallery, etc.)
+│   │   ├── shared/        # Composants réutilisables
+│   │   ├── ui/            # Composants UI de base
+│   │   ├── blog/          # Composants spécifiques au blog
+│   │   └── projects/      # Composants spécifiques aux projets
+│   ├── sanity/            # Configuration Sanity pour l'app
+│   ├── root.tsx           # Root component
+│   └── routes.ts          # Configuration des routes
 ├── sanity/
-│   └── schemas/
-│       ├── blocks/        # Schemas des blocs
-│       ├── documents/     # Schemas des documents (Page, Post, Project)
-│       ├── objects/       # Schemas des objets (SEO, spacing, etc.)
-│       └── taxonomies/    # Schemas des taxonomies (Category, Tag)
+│   ├── schemas/
+│   │   ├── blocks/        # Schemas des blocs
+│   │   ├── documents/     # Schemas des documents (Page, Post, Project)
+│   │   ├── objects/       # Schemas des objets (SEO, spacing, etc.)
+│   │   └── taxonomies/    # Schemas des taxonomies (Category, Tag)
+│   ├── lib/               # Utilitaires Sanity
+│   ├── presentation/      # Configuration Presentation Tool
+│   └── structure.ts       # Structure du Studio
 ├── ref/                   # Site de référence à analyser
 └── seed/                  # Données de seed (NDJSON)
 ```
@@ -33,8 +41,8 @@ Ce projet utilise Next.js 14 (App Router) avec Sanity CMS. Tu es responsable de 
 
 Chaque bloc doit avoir:
 - **Schema Sanity** dans `sanity/schemas/blocks/[nom].ts`
-- **Composant React** dans `components/blocks/[Nom].tsx`
-- **Export** ajouté dans `sanity/schemas/index.ts` et `components/blocks/index.tsx`
+- **Composant React** dans `app/components/blocks/[Nom].tsx`
+- **Export** ajouté dans `sanity/schemas/index.ts` et `app/components/blocks/index.tsx`
 
 ### 2. Champs Partagés (tous les blocs)
 
@@ -98,10 +106,10 @@ export function urlFor(source: SanityImageSource) {
 ```
 This allows flexible image sources from queries without strict type requirements.
 
-### 4. Next.js Cache Corruption
-If you encounter `ENOENT: fallback-build-manifest.json` errors, clean the cache:
+### 4. React Router Build Cache
+If you encounter build or development issues, clean the cache:
 ```bash
-rm -rf .next && npm run dev
+rm -rf .react-router build && npm run dev
 ```
 
 ### 5. Component Interfaces
@@ -118,8 +126,8 @@ Do NOT add `_type: 'reference'` to the asset - it's handled by Sanity.
 
 ### 6. Required Shared Components
 Before creating blocks, ensure these exist:
-- `components/shared/Section.tsx` - Wrapper with spacing props
-- `lib/utils.ts` - Must export `cn()` function (clsx + tailwind-merge)
+- `app/components/shared/Section.tsx` - Wrapper with spacing props
+- `app/lib/utils.ts` - Must export `cn()` function (clsx + tailwind-merge)
 
 ### 7. Port Conflicts
-Default port 3000 may be in use. Next.js will auto-switch to 3001. Check terminal output for actual port.
+Default port 5173 (Vite dev server) may be in use. React Router will auto-switch to next available port. Check terminal output for actual port.

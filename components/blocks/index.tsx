@@ -28,6 +28,9 @@ interface BlockRendererProps {
   documentId?: string;
 }
 
+// Blocks that should not be wrapped in Section (full-screen blocks)
+const fullScreenBlocks = ['heroBlock'];
+
 export function BlockRenderer({ blocks, documentId }: BlockRendererProps) {
   if (!blocks) return null;
 
@@ -39,6 +42,11 @@ export function BlockRenderer({ blocks, documentId }: BlockRendererProps) {
         if (!Component) {
           console.warn(`Unknown block type: ${block._type}`);
           return null;
+        }
+
+        // Full-screen blocks render without Section wrapper
+        if (fullScreenBlocks.includes(block._type)) {
+          return <Component key={block._key} {...block} documentId={documentId} />;
         }
 
         return (
