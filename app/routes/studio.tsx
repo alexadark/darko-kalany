@@ -28,7 +28,11 @@ export default function StudioPage() {
     return <LoadingScreen />;
   }
 
-  return <StudioComponent />;
+  return (
+    <div style={{ height: '100vh', width: '100vw' }}>
+      <StudioComponent />
+    </div>
+  );
 }
 
 // Disable SSR for this route
